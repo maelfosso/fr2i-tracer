@@ -8,7 +8,7 @@ abstract class DataEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class DataLoadSuccess extends DataEvent {}
+class DataLoad extends DataEvent {}
 
 class DataAdded extends DataEvent {
   final Data data;

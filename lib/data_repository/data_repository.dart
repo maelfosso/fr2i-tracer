@@ -7,7 +7,7 @@ import 'package:tracer/data_repository/data_entity.dart';
 class DataRepository {
 
   @override
-  Future<List<DataEntity>> loadDatas() async {
+  Future<List<DataEntity>> loadData() async {
     try {
       return await localStorage.loadDatas();
     } catch (e) {
@@ -21,14 +21,14 @@ class DataRepository {
 
   // Persists datas to local disk and the web
   @override
-  Future saveDatas(List<DataEntity> datas) {
+  Future saveData(List<DataEntity> datas) {
     return Future.wait<dynamic>([
       localStorage.saveDatas(datas),
       webClient.saveDatas(datas),
     ]);
   }
 
-  Future saveData(DataEntity data) {
+  Future saveDatum(DataEntity data) {
 
   }
 }
