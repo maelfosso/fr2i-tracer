@@ -11,7 +11,7 @@ abstract class FilteredDataState extends Equatable {
 class FilteredDataLoadInProgress extends FilteredDataState {}
 
 class FilteredDataLoadSuccess extends FilteredDataState {
-  final List<Todo> filteredData;
+  final List<Data> filteredData;
   final VisibilityFilter activeFilter;
 
   const FilteredDataLoadSuccess(
