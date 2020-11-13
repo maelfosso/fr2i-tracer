@@ -9,7 +9,7 @@ class Data extends Equatable {
   final String longitude;
   final String latitude;
   final String altitude;
-  final String id;
+  final int id;
 
   Data(
     this.name, 
@@ -17,10 +17,21 @@ class Data extends Equatable {
     this.age, 
     this.longitude,
     this.latitude,
-    this.altitude, {
-      String id
-    }
-  ) : this.id = id ?? Uuid().generateV4();
+    this.altitude, 
+    this.id
+  ); // : this.id = id ?? Uuid().generateV4();
+  
+  factory Data.fromMap(int id, Map<String, dynamic> map) {
+    return Data(
+      map['name'],
+      map['sex'],
+      map['age'],
+      map['longitude'],
+      map['latitude'],
+      map['altitude'],
+      id
+    );
+  }
 
   Data copyWith({String name, String sex, int id, String longitude, String latitude, String altitude}) {
     return Data(
@@ -30,7 +41,7 @@ class Data extends Equatable {
       longitude ?? this.longitude,
       latitude ?? this.latitude,
       altitude ?? this.latitude,
-      id: id ?? this.id,
+      id ?? this.id,
     );
   }
 
@@ -44,7 +55,7 @@ class Data extends Equatable {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DataEntity &&
+      other is Data &&
           runtimeType == other.runtimeType &&
           name == other.name &&
           sex == other.sex &&
@@ -54,19 +65,19 @@ class Data extends Equatable {
           altitude == other.altitude &&
           id == other.id;
 
-  static Data fromEntity(DataEntity entity) {
-    return Data(
-      entity.name,
-      entity.sex,
-      entity.age,
-      entity.longitude,
-      entity.latitude,
-      entity.altitude,
-      id: entity.id ?? Uuid().generateV4(),
-    );
-  }
+  // static Data fromEntity(Data entity) {
+  //   return Data(
+  //     entity.name,
+  //     entity.sex,
+  //     entity.age,
+  //     entity.longitude,
+  //     entity.latitude,
+  //     entity.altitude,
+  //     id: entity.id ?? Uuid().generateV4(),
+  //   );
+  // }
 
-  Map<String, Object> toJson() {
+  Map<String, Object> toMap() {
     return {
       'name': name,
       'sex': sex,

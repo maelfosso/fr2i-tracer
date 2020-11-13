@@ -2,32 +2,15 @@ import 'dart:async';
 import 'dart:core';
 
 import 'package:tracer/data_repository/data_entity.dart';
+import 'package:tracer/models/models.dart';
 
-class DataRepository {
+abstract class DataRepository {
 
-  @override
-  Future<List<DataEntity>> loadData() async {
-    try {
-      return await localStorage.loadDatas();
-    } catch (e) {
-      final datas = await webClient.loadDatas();
+  Future<int> insertData(Data data);
 
-      await localStorage.saveDatas(datas);
+  Future updateData(Data data);
 
-      return datas;
-    }
-  }
+  Future deleteData(int dataId);
 
-  // Persists datas to local disk and the web
-  @override
-  Future saveData(List<DataEntity> datas) {
-    return Future.wait<dynamic>([
-      localStorage.saveDatas(datas),
-      webClient.saveDatas(datas),
-    ]);
-  }
-
-  Future saveDatum(DataEntity data) {
-
-  }
+  Future<List<Data>> getAllData();
 }

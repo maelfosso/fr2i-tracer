@@ -17,10 +17,10 @@ class FilterUpdated extends FilteredDataEvent {
   String toString() => 'FilterUpdated { filter: $filter }';
 }
 
-class DataUpdated extends FilteredDataEvent {
+class DataListUpdated extends FilteredDataEvent {
   final List<Data> data;
 
-  const DataUpdated(this.data);
+  const DataListUpdated(this.data);
 
   @override
   List<Object> get props => [data];
