@@ -3,19 +3,23 @@ class DataEntity {
   final String name;
   final String sex;
   final int age;
-  final String coords;
+  final String longitude;
+  final String latitude;
+  final String altitude;
 
   DataEntity(
     this.id,
     this.name, 
     this.sex, 
     this.age, 
-    this.coords,
+    this.longitude,
+    this.latitude,
+    this.altitude
   );
 
   @override
   int get hashCode =>
-      name.hashCode ^ sex.hashCode ^ age.hashCode ^ coords.hashCode;
+      name.hashCode ^ sex.hashCode ^ age.hashCode ^ longitude.hashCode ^ latitude.hashCode ^ altitude.hashCode;
 
 
   @override
@@ -26,7 +30,9 @@ class DataEntity {
           name == other.name &&
           sex == other.sex &&
           age == other.age &&
-          coords == other.coords &&
+          longitude == other.longitude &&
+          latitude == other.latitude &&
+          altitude == other.altitude &&
           id == other.id;
 
   Map<String, Object> toJson() {
@@ -34,14 +40,16 @@ class DataEntity {
       'name': name,
       'sex': sex,
       'age': age,
-      'coords': coords,
+      'longitude': longitude,
+      'latitude': latitude,
+      'altitude': altitude,
       'id': id,
     };
   }
 
   @override
   String toString() {
-    return 'DataEntity{name: $name, sex: $sex, age: $age, coords: $coords, id: $id}';
+    return 'DataEntity{name: $name, sex: $sex, age: $age, longitude: $longitude, latitude: $latitude, altitude: $altitude, id: $id}';
   }
 
   static DataEntity fromJson(Map<String, Object> json) {
@@ -50,7 +58,9 @@ class DataEntity {
       json['name'] as String,
       json['sex'] as String,
       json['age'] as int,
-      json['coords'] as String,
+      json['longitude'] as String,
+      json['latitude'] as String,
+      json['altitude'] as String,
     );
   }
 }
