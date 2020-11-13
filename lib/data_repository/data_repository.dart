@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:meta/meta.dart';
 import 'package:tracer/data_repository/data_entity.dart';
 
 class DataRepository {

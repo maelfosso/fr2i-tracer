@@ -1,37 +1,45 @@
+import 'dart:math';
 import 'package:equatable/equatable.dart';
+import 'package:tracer/data_repository/data_entity.dart';
 
 class Data extends Equatable {
   final String name;
   final String sex;
   final int age;
-  final String coords;
+  final String longitude;
+  final String latitude;
+  final String altitude;
   final String id;
 
   Data(
     this.name, 
     this.sex, 
     this.age, 
-    this.coords , {
+    this.longitude,
+    this.latitude,
+    this.altitude, {
       String id
     }
   ) : this.id = id ?? Uuid().generateV4();
 
-  Data copyWith({String name, String sex, int id, String coords}) {
+  Data copyWith({String name, String sex, int id, String longitude, String latitude, String altitude}) {
     return Data(
       name ?? this.name,
       sex ?? this.sex,
       age ?? this.age,
-      coords ?? this.coords,
+      longitude ?? this.longitude,
+      latitude ?? this.latitude,
+      altitude ?? this.latitude,
       id: id ?? this.id,
     );
   }
 
   @override
   int get hashCode =>
-      name.hashCode ^ sex.hashCode ^ age.hashCode ^ coords.hashCode;
+      name.hashCode ^ sex.hashCode ^ age.hashCode ^ longitude.hashCode ^ latitude.hashCode ^ altitude.hashCode;
 
   @override
-  List<Object> get props => [id, name, age, sex, coords];
+  List<Object> get props => [id, name, age, sex, longitude, latitude, altitude];
 
   @override
   bool operator ==(Object other) =>
@@ -41,7 +49,9 @@ class Data extends Equatable {
           name == other.name &&
           sex == other.sex &&
           age == other.age &&
-          coords == other.coords &&
+          longitude == other.longitude &&
+          latitude == other.latitude &&
+          altitude == other.altitude &&
           id == other.id;
 
   static Data fromEntity(DataEntity entity) {
@@ -49,7 +59,9 @@ class Data extends Equatable {
       entity.name,
       entity.sex,
       entity.age,
-      entity.coords,
+      entity.longitude,
+      entity.latitude,
+      entity.altitude,
       id: entity.id ?? Uuid().generateV4(),
     );
   }
@@ -59,13 +71,37 @@ class Data extends Equatable {
       'name': name,
       'sex': sex,
       'age': age,
-      'coords': coords,
+      'longitude': longitude,
+      'latitude': latitude,
+      'altitude': altitude,
       'id': id,
     };
   }
 
   @override
   String toString() {
-    return 'DataEntity{name: $name, sex: $sex, age: $age, coords: $coords, id: $id}';
+    return 'Data{name: $name, sex: $sex, age: $age, longitude: $longitude, latitude: $latitude, altitude: $altitude, id: $id}';
   }
+}
+
+class Uuid {
+  final Random _random = Random();
+
+  String generateV4() {
+    final int special = 8 + _random.nextInt(4);
+
+    return '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}-'
+        '${_bitsDigits(16, 4)}-'
+        '4${_bitsDigits(12, 3)}-'
+        '${_printDigits(special, 1)}${_bitsDigits(12, 3)}-'
+        '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
+  }
+
+  String _bitsDigits(int bitCount, int digitCount) =>
+      _printDigits(_generateBits(bitCount), digitCount);
+
+  int _generateBits(int bitCount) => _random.nextInt(1 << bitCount);
+
+  String _printDigits(int value, int count) =>
+      value.toRadixString(16).padLeft(count, '0');
 }
