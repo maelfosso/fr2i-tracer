@@ -35,6 +35,18 @@ class DataEntity {
           altitude == other.altitude &&
           id == other.id;
 
+  factory DataEntity.fromMap(int id, Map<String, dynamic> map) {
+    return DataEntity(
+      map['id'],
+      map['name'],
+      map['sex'],
+      map['age'],
+      map['longitude'],
+      map['latitude'],
+      map['altitude'],
+    );
+  }
+
   Map<String, Object> toJson() {
     return {
       'name': name,
@@ -47,11 +59,6 @@ class DataEntity {
     };
   }
 
-  @override
-  String toString() {
-    return 'DataEntity{name: $name, sex: $sex, age: $age, longitude: $longitude, latitude: $latitude, altitude: $altitude, id: $id}';
-  }
-
   static DataEntity fromJson(Map<String, Object> json) {
     return DataEntity(
       json['id'] as String,
@@ -62,5 +69,10 @@ class DataEntity {
       json['latitude'] as String,
       json['altitude'] as String,
     );
+  }
+
+  @override
+  String toString() {
+    return 'DataEntity{name: $name, sex: $sex, age: $age, longitude: $longitude, latitude: $latitude, altitude: $altitude, id: $id}';
   }
 }
