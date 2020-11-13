@@ -11,7 +11,7 @@ class DataEntity {
     this.sex, 
     this.age, 
     this.coords,
-  )
+  );
 
   @override
   int get hashCode =>

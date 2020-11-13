@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tracer/blocs/filtered_data/filtered_data.dart';
 import 'package:tracer/blocs/data/data.dart';
-import 'package:tracer/models/data.dart';
+import 'package:tracer/models/models.dart';
 
 class FilteredDataBloc extends Bloc<FilteredDataEvent, FilteredDataState> {
   final DataBloc dataBloc;

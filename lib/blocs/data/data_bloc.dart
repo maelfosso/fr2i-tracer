@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tracer/blocs/data/data.dart';
-import 'package:tracer/models/data.dart';
+import 'package:tracer/models/models.dart';
 import 'package:tracer/data_repository/data_repository.dart';
 
 class DataBloc extends Bloc<DataEvent, DataState> {

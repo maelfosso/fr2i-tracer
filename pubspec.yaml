@@ -21,6 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  meta: ^1.1.6
+  equatable: ^1.0.0
+  flutter_bloc: ^5.0.0
   flutter:
     sdk: flutter
 
@@ -42,9 +45,6 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  meta: ^1.1.6
-  equatable: ^1.0.0
-  flutter_bloc: ^5.0.0
   
   uses-material-design: true
 
