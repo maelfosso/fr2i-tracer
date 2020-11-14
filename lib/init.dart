@@ -3,6 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
+import 'package:tracer/data_repository/data_repository.dart';
 import 'package:tracer/data_repository/local_data_repository.dart';
 
 class Init {
@@ -20,6 +21,6 @@ class Init {
   }
 
   static _registerRepositories(){
-    GetIt.I.registerLazySingleton<LocalDataRepository>(() => LocalDataRepository());
+    GetIt.I.registerLazySingleton<DataRepository>(() => LocalDataRepository());
   }
 }

@@ -33,7 +33,7 @@ class Data extends Equatable {
     );
   }
 
-  Data copyWith({String name, String sex, int id, String longitude, String latitude, String altitude}) {
+  Data copyWith({String name, String sex, int id, int age, String longitude, String latitude, String altitude}) {
     return Data(
       name ?? this.name,
       sex ?? this.sex,
