@@ -20,7 +20,7 @@ class FilteredDataBloc extends Bloc<FilteredDataEvent, FilteredDataState> {
         ) {
     dataSubscription = dataBloc.listen((state) {
       if (state is DataLoadSuccess) {
-        add(DataUpdated((dataBloc.state as DataLoadSuccess).data));
+        add(DataListUpdated((dataBloc.state as DataLoadSuccess).data));
       }
     });
   }
@@ -29,8 +29,8 @@ class FilteredDataBloc extends Bloc<FilteredDataEvent, FilteredDataState> {
   Stream<FilteredDataState> mapEventToState(FilteredDataEvent event) async* {
     if (event is FilterUpdated) {
       yield* _mapUpdateFilterToState(event);
-    } else if (event is DataUpdated) {
-      yield* _mapDataUpdatedToState(event);
+    } else if (event is DataListUpdated) {
+      yield* _mapDataListUpdatedToState(event);
     }
   }
 
@@ -48,8 +48,8 @@ class FilteredDataBloc extends Bloc<FilteredDataEvent, FilteredDataState> {
     }
   }
 
-  Stream<FilteredDataState> _mapDataUpdatedToState(
-    DataUpdated event,
+  Stream<FilteredDataState> _mapDataListUpdatedToState(
+    DataListUpdated event,
   ) async* {
     final visibilityFilter = state is FilteredDataLoadSuccess
         ? (state as FilteredDataLoadSuccess).activeFilter
@@ -66,17 +66,18 @@ class FilteredDataBloc extends Bloc<FilteredDataEvent, FilteredDataState> {
   List<Data> _mapDataToFilteredData(
       List<Data> data, VisibilityFilter filter) {
     return data.where((data) {
-      if (filter == VisibilityFilter.all) {
-        return true;
-      } else if (filter == VisibilityFilter.draft) {
-        return data.status == "draft";
-      } else if (filter == VisibilityFilter.synchronized {
-        return data.status == "synchronized";
-      } else if (filter == VisibilityFilter.notsynchronized {
-        return data.status == "notsynchronized";
-      } else if (filter == VisibilityFilter.notsynchronized {
-        return data.status == "saved";
-      }
+      // if (filter == VisibilityFilter.all) {
+      //   return true;
+      // } else if (filter == VisibilityFilter.draft) {
+      //   return data.status == "draft";
+      // } else if (filter == VisibilityFilter.synchronized {
+      //   return data.status == "synchronized";
+      // } else if (filter == VisibilityFilter.notsynchronized {
+      //   return data.status == "notsynchronized";
+      // } else if (filter == VisibilityFilter.notsynchronized {
+      //   return data.status == "saved";
+      // }
+      return true;
     }).toList();
   }
 

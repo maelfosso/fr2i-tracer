@@ -47,7 +47,7 @@ class DataEntity {
     );
   }
 
-  Map<String, Object> toJson() {
+  Map<String, Object> toMap() {
     return {
       'name': name,
       'sex': sex,

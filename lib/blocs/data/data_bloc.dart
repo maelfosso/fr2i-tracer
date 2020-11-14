@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:get_it/get_it.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tracer/blocs/data/data.dart';
@@ -6,9 +7,9 @@ import 'package:tracer/models/models.dart';
 import 'package:tracer/data_repository/data_repository.dart';
 
 class DataBloc extends Bloc<DataEvent, DataState> {
-  final DataRepository dataRepository;
+  final DataRepository dataRepository = GetIt.I.get();
 
-  DataBloc({@required this.dataRepository}) : super(DataLoadInProgress());
+  DataBloc() : super(DataLoadInProgress());
 
   @override
   Stream<DataState> mapEventToState(DataEvent event) async* {
@@ -29,70 +30,68 @@ class DataBloc extends Bloc<DataEvent, DataState> {
 
   Stream<DataState> _mapDataLoadedToState() async* {
     try {
-      final data = await this.dataRepository.loadData();
-      yield DataLoad(
-        data.map(Data.fromEntity).toList(),
-      );
+      final data = await this.dataRepository.getAllData();
+      yield DataLoadSuccess(data);
     } catch (_) {
       yield DataLoadFailure();
     }
   }
 
   Stream<DataState> _mapDataAddedToState(DataAdded event) async* {
-    if (state is DataLoad) {
-      final List<Data> updatedData = List.from((state as DataLoad).data)
-        ..add(event.todo);
-      yield DataLoad(updatedData);
-      _saveData(updatedData);
+    if (state is DataLoadSuccess) {
+      final List<Data> updatedData = List.from((state as DataLoadSuccess).data)
+        ..add(event.data);
+      this.dataRepository.insertData(event.data);
+      yield DataLoadSuccess(updatedData);
     }
   }
 
   Stream<DataState> _mapDataUpdatedToState(DataUpdated event) async* {
-    if (state is DataLoad) {
-      final List<Data> updatedData = (state as DataLoad).data.map((todo) {
-        return todo.id == event.updatedData.id ? event.updatedData : todo;
+    if (state is DataLoadSuccess) {
+      final List<Data> updatedData = (state as DataLoadSuccess).data.map((data) {
+        return data.id == event.data.id ? event.data : data;
       }).toList();
-      yield DataLoad(updatedData);
-      _saveData(updatedData);
+      this.dataRepository.updateData(event.data);
+      yield DataLoadSuccess(updatedData);
     }
   }
 
   Stream<DataState> _mapDataDeletedToState(DataDeleted event) async* {
-    if (state is DataLoad) {
-      final updatedData = (state as DataLoad)
+    if (state is DataLoadSuccess) {
+      final updatedData = (state as DataLoadSuccess)
           .data
-          .where((todo) => todo.id != event.todo.id)
+          .where((data) => data.id != event.data.id)
           .toList();
-      yield DataLoad(updatedData);
-      _saveData(updatedData);
+      this.dataRepository.deleteData(event.data.id);
+      yield DataLoadSuccess(updatedData);
     }
   }
 
   Stream<DataState> _mapToggleAllToState() async* {
-    if (state is DataLoad) {
-      final allComplete =
-          (state as DataLoad).data.every((todo) => todo.complete);
-      final List<Data> updatedData = (state as DataLoad)
-          .data
-          .map((todo) => todo.copyWith(complete: !allComplete))
-          .toList();
-      yield DataLoad(updatedData);
-      _saveData(updatedData);
-    }
+    // if (state is DataLoad) {
+    //   final allComplete =
+    //       (state as DataLoad).data.every((data) => data.complete);
+    //   final List<Data> updatedData = (state as DataLoad)
+    //       .data
+    //       .map((data) => data.copyWith(complete: !allComplete))
+    //       .toList();
+    //   yield DataLoad(updatedData);
+    //   _saveData(updatedData);
+    // }
   }
 
   Stream<DataState> _mapClearCompletedToState() async* {
-    if (state is DataLoad) {
-      final List<Data> updatedData =
-          (state as DataLoad).data.where((todo) => !todo.complete).toList();
-      yield DataLoad(updatedData);
-      _saveData(updatedData);
-    }
+    // if (state is DataLoad) {
+    //   final List<Data> updatedData =
+    //       (state as DataLoad).data.where((data) => !data.complete).toList();
+    //   yield DataLoad(updatedData);
+    //   _saveData(updatedData);
+    // }
   }
 
-  Future _saveData(List<Data> data) {
-    return dataRepository.saveData(
-      data.map((todo) => todo.toEntity()).toList(),
-    );
-  }
+  // Future _saveData(List<Data> data) {
+  //   return dataRepository.saveData(
+  //     data.map((data) => data.toEntity()).toList(),
+  //   );
+  // }
 }
