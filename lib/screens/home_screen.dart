@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  Widget _buildFeatureItem(IconData icon, String name) {
+  Widget _buildFeatureItem(IconData icon, String name, VoidCallback callback) {
     return Card(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              // color: Colors.pink,
-              size: 32.0,
-              semanticLabel: name,
-            ),
-            Text(name)
-          ],
-        ),
+      child: InkWell(
+        onTap: callback,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+          child: Column(
+            children: [
+              Icon(
+                icon,
+                // color: Colors.pink,
+                size: 32.0,
+                semanticLabel: name,
+              ),
+              Text(name)
+            ],
+          ),
+        )
       )
     );
   }
@@ -36,9 +39,15 @@ class HomeScreen extends StatelessWidget {
           direction: Axis.horizontal,
           alignment: WrapAlignment.spaceBetween,
           children: [
-            _buildFeatureItem(Icons.add_a_photo ,"Take a picture"),
-            _buildFeatureItem(Icons.send, "Send a picture"),
-            _buildFeatureItem(Icons.toys, "Classify a picture")  
+            _buildFeatureItem(Icons.add_a_photo ,"Take a picture", () {
+              print("Taped on TAKE A PICTURE");
+            }),
+            _buildFeatureItem(Icons.send, "Send a picture", () {
+              print("Taped on TAKE A PICTURE");
+            }),
+            _buildFeatureItem(Icons.toys, "Classify a picture", () {
+              print("Taped on TAKE A PICTURE");
+            })  
           ]
         )
       ]
@@ -58,8 +67,12 @@ class HomeScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildFeatureItem(Icons.add ,"Enter a data"),
-            _buildFeatureItem(Icons.all_out, "All your data")
+            _buildFeatureItem(Icons.add ,"Enter a data", () {
+              print("Taped on ENTER A DATA");
+            }),
+            _buildFeatureItem(Icons.all_out, "All your data", () {
+              print("Taped on ALL YOUR DATA");
+            })
           ]
         )
       ]
