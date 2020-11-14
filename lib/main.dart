@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tracer/screens/screens.dart';
 
 void main() {
   runApp(TracerApp());
@@ -26,7 +27,7 @@ class TracerApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Container()
+      home: HomeScreen()
     );
   }
 }
