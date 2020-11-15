@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:tracer/data_repository/data_entity.dart';
+import 'package:tracer/models/models.dart';
 
 class Data extends Equatable {
   final String name;
@@ -10,6 +11,7 @@ class Data extends Equatable {
   final String latitude;
   final String altitude;
   final int id;
+  final VisibilityFilter state;
 
   Data(
     this.name, 
@@ -18,8 +20,9 @@ class Data extends Equatable {
     this.longitude,
     this.latitude,
     this.altitude, 
-    this.id
-  ); // : this.id = id ?? Uuid().generateV4();
+    this.id,
+    { this.state = VisibilityFilter.notsynchronized }
+  ); //: this.state = state;
   
   factory Data.fromMap(int id, Map<String, dynamic> map) {
     return Data(
@@ -33,7 +36,10 @@ class Data extends Equatable {
     );
   }
 
-  Data copyWith({String name, String sex, int id, int age, String longitude, String latitude, String altitude}) {
+  Data copyWith({String name, String sex, int id, int age, 
+      String longitude, String latitude, String altitude, 
+      String state
+  }) {
     return Data(
       name ?? this.name,
       sex ?? this.sex,
@@ -42,6 +48,7 @@ class Data extends Equatable {
       latitude ?? this.latitude,
       altitude ?? this.latitude,
       id ?? this.id,
+      state: state ?? this.state
     );
   }
 
@@ -65,18 +72,6 @@ class Data extends Equatable {
           altitude == other.altitude &&
           id == other.id;
 
-  // static Data fromEntity(Data entity) {
-  //   return Data(
-  //     entity.name,
-  //     entity.sex,
-  //     entity.age,
-  //     entity.longitude,
-  //     entity.latitude,
-  //     entity.altitude,
-  //     id: entity.id ?? Uuid().generateV4(),
-  //   );
-  // }
-
   Map<String, Object> toMap() {
     return {
       'name': name,
@@ -91,7 +86,7 @@ class Data extends Equatable {
 
   @override
   String toString() {
-    return 'Data{name: $name, sex: $sex, age: $age, longitude: $longitude, latitude: $latitude, altitude: $altitude, id: $id}';
+    return 'Data{name: $name, sex: $sex, age: $age, longitude: $longitude, latitude: $latitude, altitude: $altitude, id: $id, state: $state}';
   }
 }
 

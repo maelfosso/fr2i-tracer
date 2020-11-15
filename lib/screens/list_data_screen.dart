@@ -14,10 +14,19 @@ class ListDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<DataBloc>(context).add(DataLoad());
     
     return Scaffold(
       appBar: AppBar(
         title: Text("Data"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.sync),
+            onPressed: () {
+              BlocProvider.of<DataBloc>(context).add(DataUpload());
+            },
+          )
+        ],
       ),
       body: BlocBuilder<DataBloc, DataState>(
         builder: (context, state) {
