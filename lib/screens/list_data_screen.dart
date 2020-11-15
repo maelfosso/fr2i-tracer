@@ -5,6 +5,7 @@ import 'package:tracer/blocs/data/data_event.dart';
 import 'package:tracer/blocs/data/data_state.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/screens/add_edit_data_screen.dart';
+import 'package:tracer/screens/details_screen.dart';
 import 'package:tracer/screens/keys.dart';
 import 'package:tracer/widgets/data_item.dart';
 import 'package:tracer/widgets/loading_indicator.dart';
@@ -20,11 +21,10 @@ class ListDataScreen extends StatelessWidget {
       ),
       body: BlocBuilder<DataBloc, DataState>(
         builder: (context, state) {
-          print("List DATA SCREEN ... $state");
-
           if (state is DataLoadInProgress) {
             return LoadingIndicator();
           } else if (state is DataLoadSuccess) {
+
             final data = state.data;
 
             return ListView.builder(
@@ -53,23 +53,26 @@ class ListDataScreen extends StatelessWidget {
                   onTap: () async {
                     final removedData = await Navigator.of(context).push(
                       MaterialPageRoute(builder: (_) {
-                        return AddEditDataScreen(
-                          isEditing: true,
-                          data: datum,
-                          onSave: (name, sex, age, longitude, latitude, altitude, id) {
-                            BlocProvider.of<DataBloc>(context).add(
-                              DataUpdated(
-                                Data(name, sex, 0, longitude, latitude, altitude, id)
-                              ) 
-                            );
-                          },
-                        );
-                      })
+                        return DetailsScreen(id: datum.id);
+                      }),
                     );
-
-                    if (removedData != null) {
-                      
-                    }
+                    // BlocProvider.of<DataBloc>(context).add(DataLoad());
+                    // if (removedData != null) {
+                    //   Scaffold.of(context).showSnackBar(SnackBar(
+                    //     key: ArchSampleKeys.snackbar,
+                    //     content: Text(
+                    //       "Delete Data",
+                    //       maxLines: 1,
+                    //       overflow: TextOverflow.ellipsis,
+                    //     ),
+                    //     duration: Duration(seconds: 2),
+                    //     action: SnackBarAction(
+                    //       label: "Undo",
+                    //       onPressed: () => BlocProvider.of<DataBloc>(context)
+                    //         .add(DataAdded(datum)),
+                    //     ),
+                    //   ));
+                    // }
                   },
                 );
               }
@@ -80,6 +83,14 @@ class ListDataScreen extends StatelessWidget {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        key: ArchSampleKeys.addDataScreen,
+        onPressed: () {
+          Navigator.pushNamed(context, ArchSampleRoutes.addData);
+        },
+        child: Icon(Icons.add),
+        tooltip: "Add new data"
       )
     );
   }

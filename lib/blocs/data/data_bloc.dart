@@ -42,9 +42,9 @@ class DataBloc extends Bloc<DataEvent, DataState> {
   Stream<DataState> _mapDataAddedToState(DataAdded event) async* {
     print('\nInto _mapDataAddedToState - ${event.data} - $state');
     if (state is DataLoadSuccess) {
-      final List<Data> updatedData = List.from((state as DataLoadSuccess).data)
-        ..add(event.data);
       final result = await this.dataRepository.insertData(event.data);
+      final List<Data> updatedData = List.from((state as DataLoadSuccess).data)
+        ..add(event.data.copyWith(id: result));
       print("Result $result \tAdded Data ${event.data}");
       yield DataLoadSuccess(updatedData);
     }

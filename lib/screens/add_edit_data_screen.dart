@@ -138,7 +138,7 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_name, _sex, 0, _longitude, _latitude, _altitude, widget.data.id);
+            widget.onSave(_name, _sex, 0, _longitude, _latitude, _altitude, isEditing? widget.data.id : 0);
             Navigator.pop(context);
           }
         },
@@ -146,29 +146,3 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
     ); 
   }
 }
-
-// RaisedButton(
-                //   key: isEditing ? ArchSampleKeys.saveEditedDataFab : ArchSampleKeys.saveNewDataFab,
-                //   child: Text(isEditing ? "Save Changes" : "Add new data"),
-                //   onPressed: () {
-                //     if (_formKey.currentState.validate()) {
-                //       _formKey.currentState.save();
-                //       widget.onSave(_name, _sex, 0, _longitude, _latitude, _altitude, 0);
-                //       Navigator.pop(context);
-                //     }
-                //     // if (_formKey.currentState.validate()) {
-                //     //   _formKey.currentState.save();
-                //     //   BlocProvider.of<DataBloc>(context).add(
-                //     //     isEditing 
-                //     //       ? DataAdded(
-                //     //         Data(_name, _sex, 0, _longitude, _latitude, _altitude, 0)
-                //     //       ) 
-                //     //       : DataUpdated(
-                //     //         widget.data.copyWith(name: _name, sex: _sex, age: _age, longitude: _longitude, latitude: _longitude, altitude: _altitude)
-                //     //       )
-                //     //   );
-                //     //   Navigator.pop(context);
-                //     // }
-                //   },
-                // )
-              // ]

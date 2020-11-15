@@ -13,7 +13,7 @@ import 'package:tracer/screens/screens.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
-  // runApp(TracerApp());
+  
   runApp(BlocProvider(
     create: (BuildContext context) => DataBloc()..add(DataLoad()),
     child: TracerApp(),
@@ -59,15 +59,10 @@ class _TracerStateApp extends State<TracerApp> {
             ), 
             routes: {
               ArchSampleRoutes.listData: (context) {
-                return BlocProvider(
-                  create: (BuildContext context) => DataBloc()..add(DataLoad()),
-                  child: ListDataScreen(),
-                );
+                return ListDataScreen();
               },
               ArchSampleRoutes.addData: (context) {
-                return BlocProvider(
-                  create: (BuildContext context) => DataBloc(),
-                  child: AddEditDataScreen(
+                return AddEditDataScreen(
                     key: ArchSampleKeys.addDataScreen,
                     isEditing: false,
                     onSave: (name, sex, age, longitude, latitude, altitude, id) {
@@ -77,8 +72,7 @@ class _TracerStateApp extends State<TracerApp> {
                         ) 
                       );
                     },
-                  ),
-                );
+                  );
               }
             },
           );
