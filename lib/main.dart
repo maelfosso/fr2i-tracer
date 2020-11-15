@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracer/blocs/data/data_bloc.dart';
+import 'package:tracer/blocs/data/data_event.dart';
+import 'package:tracer/blocs/data/data_state.dart';
+import 'package:tracer/blocs/simple_bloc_observer.dart';
 import 'package:tracer/init.dart';
+import 'package:tracer/models/models.dart';
+import 'package:tracer/screens/add_edit_data_screen.dart';
+import 'package:tracer/screens/keys.dart';
+import 'package:tracer/screens/list_data_screen.dart';
 import 'package:tracer/screens/screens.dart';
 
 void main() {
+  Bloc.observer = SimpleBlocObserver();
   runApp(TracerApp());
 }
 
-class TracerApp extends StatelessWidget {
+class TracerApp extends StatefulWidget {
+  @override
+  _TracerStateApp createState() => _TracerStateApp();
+}
+
+class _TracerStateApp extends State<TracerApp> {
   final Future _init =  Init.initialize();
   
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -38,9 +50,33 @@ class TracerApp extends StatelessWidget {
             ),
             home: BlocProvider(
               lazy: false,
-              create: (BuildContext context) => DataBloc(),
+              create: (BuildContext context) => DataBloc()..add(DataLoad()),
               child: HomeScreen()
-            )
+            ), 
+            routes: {
+              ArchSampleRoutes.listData: (context) {
+                return BlocProvider(
+                  create: (BuildContext context) => DataBloc()..add(DataLoad()),
+                  child: ListDataScreen(),
+                );
+              },
+              ArchSampleRoutes.addData: (context) {
+                return BlocProvider(
+                  create: (BuildContext context) => DataBloc(),
+                  child: AddEditDataScreen(
+                    key: ArchSampleKeys.addDataScreen,
+                    isEditing: false,
+                    onSave: (name, sex, age, longitude, latitude, altitude, id) {
+                      BlocProvider.of<DataBloc>(context).add(
+                        DataAdded(
+                          Data(name, sex, 0, longitude, latitude, altitude, 0)
+                        ) 
+                      );
+                    },
+                  ),
+                );
+              }
+            },
           );
         } else {
           return Material(
