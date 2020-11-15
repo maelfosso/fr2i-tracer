@@ -9,7 +9,6 @@ class LocalDataRepository extends DataRepository {
 
   @override
   Future<int> insertData(Data data) async {
-    print('\nInto InsertData with $data');
     return await _store.add(_database, data.toMap());
   }
 

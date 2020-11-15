@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracer/blocs/data/data_bloc.dart';
 import 'package:tracer/blocs/data/data_event.dart';
 import 'package:tracer/blocs/data/data_state.dart';
+import 'package:tracer/models/models.dart';
 import 'package:tracer/screens/add_edit_data_screen.dart';
 import 'package:tracer/screens/keys.dart';
 import 'package:tracer/widgets/data_item.dart';
@@ -55,7 +56,13 @@ class ListDataScreen extends StatelessWidget {
                         return AddEditDataScreen(
                           isEditing: true,
                           data: datum,
-                          onSave: (name, sex, age, longitude, latitude, altitude, id) {},
+                          onSave: (name, sex, age, longitude, latitude, altitude, id) {
+                            BlocProvider.of<DataBloc>(context).add(
+                              DataUpdated(
+                                Data(name, sex, 0, longitude, latitude, altitude, id)
+                              ) 
+                            );
+                          },
                         );
                       })
                     );

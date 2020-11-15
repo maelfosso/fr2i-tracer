@@ -138,7 +138,7 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_name, _sex, 0, _longitude, _latitude, _altitude, 0);
+            widget.onSave(_name, _sex, 0, _longitude, _latitude, _altitude, widget.data.id);
             Navigator.pop(context);
           }
         },
