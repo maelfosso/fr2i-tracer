@@ -5,6 +5,7 @@ import 'package:tracer/blocs/data/data_event.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/screens/add_edit_data_screen.dart';
 import 'package:tracer/screens/keys.dart';
+import 'package:tracer/screens/list_data_screen.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -73,27 +74,28 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildFeatureItem(Icons.add ,"Enter a data", () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AddEditDataScreen(
-                      key: ArchSampleKeys.addDataScreen,
-                      onSave: (name, sex, age, longitude, latitude, altitude, id) {
-                        BlocProvider.of<DataBloc>(context).add(
-                          DataAdded(
-                            Data(name, sex, 0, longitude, latitude, altitude, 0)
-                          ) 
-                        );
-                      },
-                      isEditing: false,
-                      // todo: todo,
-                    );
-                  }
-                ),
-              );
+              Navigator.pushNamed(context, ArchSampleRoutes.addData);
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) {
+              //       return AddEditDataScreen(
+              //         key: ArchSampleKeys.addDataScreen,
+              //         onSave: (name, sex, age, longitude, latitude, altitude, id) {
+              //           BlocProvider.of<DataBloc>(context).add(
+              //             DataAdded(
+              //               Data(name, sex, 0, longitude, latitude, altitude, 0)
+              //             ) 
+              //           );
+              //         },
+              //         isEditing: false,
+              //         // todo: todo,
+              //       );
+              //     }
+              //   ),
+              // );
             }),
             _buildFeatureItem(Icons.all_out, "All your data", () {
-              print("Taped on ALL YOUR DATA");
+              Navigator.pushNamed(context, ArchSampleRoutes.listData);
             })
           ]
         )
@@ -123,3 +125,23 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) {
+              //       return ListDataScreen();
+              //       //   key: ArchSampleKeys.addDataScreen,
+              //       //   onSave: (name, sex, age, longitude, latitude, altitude, id) {
+              //       //     BlocProvider.of<DataBloc>(context).add(
+              //       //       DataAdded(
+              //       //         Data(name, sex, 0, longitude, latitude, altitude, 0)
+              //       //       ) 
+              //       //     );
+              //       //   },
+              //       //   isEditing: false,
+              //       //   // todo: todo,
+              //       // );
+              //     }
+              //   ),
+              // );

@@ -3,16 +3,18 @@ import 'package:get_it/get_it.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tracer/blocs/data/data.dart';
+import 'package:tracer/data_repository/local_data_repository.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/data_repository/data_repository.dart';
 
 class DataBloc extends Bloc<DataEvent, DataState> {
-  final DataRepository dataRepository = GetIt.I.get();
+  final DataRepository dataRepository = GetIt.I.get<DataRepository>();
 
   DataBloc() : super(DataLoadInProgress());
 
   @override
   Stream<DataState> mapEventToState(DataEvent event) async* {
+    print('\n+++++ \tmapEventToState ... $event \n');
     if (event is DataLoad) {
       yield* _mapDataLoadedToState();
     } else if (event is DataAdded) {
@@ -38,12 +40,15 @@ class DataBloc extends Bloc<DataEvent, DataState> {
   }
 
   Stream<DataState> _mapDataAddedToState(DataAdded event) async* {
+    print('\nInto _mapDataAddedToState - ${event.data} - $state');
     if (state is DataLoadSuccess) {
       final List<Data> updatedData = List.from((state as DataLoadSuccess).data)
         ..add(event.data);
-      this.dataRepository.insertData(event.data);
+      final result = await this.dataRepository.insertData(event.data);
+      print("Result $result \tAdded Data ${event.data}");
       yield DataLoadSuccess(updatedData);
     }
+    print('\nEnd of _mapDataAddedToState');
   }
 
   Stream<DataState> _mapDataUpdatedToState(DataUpdated event) async* {

@@ -35,7 +35,7 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name;
-  String _sex;
+  String _sex = 'Male';
   int _age;
   String _longitude;
   String _latitude;

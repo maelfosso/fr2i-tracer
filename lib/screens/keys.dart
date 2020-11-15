@@ -8,18 +8,9 @@ class ArchSampleKeys {
   static Key snackbarAction(String id) => Key('__snackbar_action_${id}__');
 
   // Datas
-  static const todoList = Key('__todoList__');
-  static const todosLoading = Key('__todosLoading__');
-  static final todoItem = (String id) => Key('DataItem__${id}');
-  static final todoItemCheckbox =
-      (String id) => Key('DataItem__${id}__Checkbox');
-  static final todoItemTask = (String id) => Key('DataItem__${id}__Task');
-  static final todoItemNote = (String id) => Key('DataItem__${id}__Note');
-
-  // Tabs
-  static const tabs = Key('__tabs__');
-  static const todoTab = Key('__todoTab__');
-  static const statsTab = Key('__statsTab__');
+  static const dataList = Key('__dataList__');
+  static const datasLoading = Key('__datasLoading__');
+  static final dataItem = (String id) => Key('DataItem__$id');
 
   // Extra Actions
   static const extraActionsButton = Key('__extraActionsButton__');
@@ -41,7 +32,7 @@ class ArchSampleKeys {
   // Details Screen
   static const editDataFab = Key('__editDataFab__');
   static const deleteDataButton = Key('__deleteDataFab__');
-  static const todoDetailsScreen = Key('__todoDetailsScreen__');
+  static const dataDetailsScreen = Key('__dataDetailsScreen__');
   static final detailsDataItemCheckbox = Key('DetailsData__Checkbox');
   static final detailsDataItemTask = Key('DetailsData__Task');
   static final detailsDataItemNote = Key('DetailsData__Note');
@@ -59,4 +50,10 @@ class ArchSampleKeys {
   // Edit Screen
   static const editDataScreen = Key('__editDataScreen__');
   static const saveEditedDataFab = Key('__saveEditedDataFab__');
+}
+
+class ArchSampleRoutes {
+  static final home = '/';
+  static final addData = '/addData';
+  static final listData = '/listData';
 }

@@ -13,7 +13,11 @@ import 'package:tracer/screens/screens.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
-  runApp(TracerApp());
+  // runApp(TracerApp());
+  runApp(BlocProvider(
+    create: (BuildContext context) => DataBloc()..add(DataLoad()),
+    child: TracerApp(),
+  ));
 }
 
 class TracerApp extends StatefulWidget {
