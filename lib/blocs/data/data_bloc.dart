@@ -2,13 +2,26 @@ import 'dart:async';
 import 'package:get_it/get_it.dart';
 import 'package:bloc/bloc.dart';
 import 'package:tracer/blocs/data/data.dart';
+import 'package:tracer/blocs/upload_data/upload_data.dart';
+import 'package:tracer/blocs/upload_data/upload_data_bloc.dart';
+import 'package:tracer/data_repository/data_entity.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/data_repository/data_repository.dart';
 
 class DataBloc extends Bloc<DataEvent, DataState> {
   final DataRepository dataRepository = GetIt.I.get<DataRepository>();
+  
+  // UploadDataBloc uploadDataBloc;
+  // StreamSubscription uploadDataSubscription;
 
-  DataBloc() : super(DataLoadInProgress());
+  DataBloc() : super(DataLoadInProgress()); 
+  // {
+  //   uploadDataSubscription = uploadDataBloc.listen((state) {
+  //     if (state is DataUploadedSuccess) {
+  //       add(DataUpdated(state.data.toData()));
+  //     }
+  //   });
+  // }
 
   @override
   Stream<DataState> mapEventToState(DataEvent event) async* {

@@ -28,12 +28,12 @@ class UploadDataBloc extends Bloc<UploadDataEvent, UploadDataState> {
     print('\nINTO _mapDataUploadTostate.... ');
     
     print('\nLET GO _mapDataUploadTostate.... ');
-    final data = (state as DataLoadSuccess)
+    final data = (this.dataBloc.state as DataLoadSuccess)
         .data
         .where((data) => data.state == VisibilityFilter.notsynchronized)
         .toList();
     print('\nSize of data to upload ... ${data.length}');
-    // final stream = _createDataStream(data).asBroadcastStream(); 
+
     yield* _uploadData(data);
     print('\nEVERYTHING IS OK');
     
@@ -41,23 +41,29 @@ class UploadDataBloc extends Bloc<UploadDataEvent, UploadDataState> {
   }
 
   Stream<UploadDataState> _uploadData(List<Data> stream) async* {
-    print('\nUpload DATA');
     final total = stream.length;
+    print('\nUpload DATA : $total');
+
+    yield DataUploadStarted(total);
 
     for (final value in stream) {
       try {
         final entity = await postData(value);
-        print('\nDATA UPLOADED SUCCESSFULLY $value');
-        this.dataRepository.updateData(entity.toData());
-        print('\nDATA LOCALLY UPDATED SUCCESSFULLY $value');
+        print('\nDATA UPLOADED SUCCESSFULLY $entity');
+        yield DataUploadedSuccess(entity);
 
-        yield DataUploadedSuccess(total);
+        // this.dataRepository.updateData(entity.toData());
+        this.dataBloc.add(DataUpdated(entity.toData()));
+        // print('\nDATA LOCALLY UPDATED SUCCESSFULLY ${entity.toData()}');
+
       } catch (e) {
         print('\nERROR occurred with $value');
         print(e);
         yield DataUploadedFailure();
       }
     }
+
+    // yield DataUploadEnded();
   }
 
   Future<DataEntity> postData(Data data) async {

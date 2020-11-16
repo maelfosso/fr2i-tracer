@@ -38,6 +38,7 @@ class DataItem extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.subtitle1,
         ),
+        trailing: Icon(data.state == VisibilityFilter.synchronized ? Icons.cloud_done : Icons.cloud_off),
       ),
     );
   }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tracer/blocs/data/data_bloc.dart';
-import 'package:tracer/blocs/data/data_event.dart';
-import 'package:tracer/blocs/data/data_state.dart';
+import 'package:tracer/blocs/data/data.dart';
+import 'package:tracer/blocs/upload_data/upload_data.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/screens/add_edit_data_screen.dart';
 import 'package:tracer/screens/details_screen.dart';
 import 'package:tracer/screens/keys.dart';
 import 'package:tracer/widgets/data_item.dart';
 import 'package:tracer/widgets/loading_indicator.dart';
+import 'package:tracer/widgets/upload_data_dialog.dart';
 
 class ListDataScreen extends StatelessWidget {
 
@@ -23,7 +23,13 @@ class ListDataScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.sync),
             onPressed: () {
-              BlocProvider.of<DataBloc>(context).add(DataUpload());
+              showDialog(
+                context: context,
+                builder: (context) => BlocProvider(
+                  create: (_) => UploadDataBloc(dataBloc: BlocProvider.of<DataBloc>(context))..add(DataUpload()),
+                  child: UploadDataDialog()
+                )
+              ); 
             },
           )
         ],
@@ -65,23 +71,23 @@ class ListDataScreen extends StatelessWidget {
                         return DetailsScreen(id: datum.id);
                       }),
                     );
-                    // BlocProvider.of<DataBloc>(context).add(DataLoad());
-                    // if (removedData != null) {
-                    //   Scaffold.of(context).showSnackBar(SnackBar(
-                    //     key: ArchSampleKeys.snackbar,
-                    //     content: Text(
-                    //       "Delete Data",
-                    //       maxLines: 1,
-                    //       overflow: TextOverflow.ellipsis,
-                    //     ),
-                    //     duration: Duration(seconds: 2),
-                    //     action: SnackBarAction(
-                    //       label: "Undo",
-                    //       onPressed: () => BlocProvider.of<DataBloc>(context)
-                    //         .add(DataAdded(datum)),
-                    //     ),
-                    //   ));
-                    // }
+                    
+                    if (removedData != null) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        key: ArchSampleKeys.snackbar,
+                        content: Text(
+                          "Delete Data",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        duration: Duration(seconds: 2),
+                        action: SnackBarAction(
+                          label: "Undo",
+                          onPressed: () => BlocProvider.of<DataBloc>(context)
+                            .add(DataAdded(datum)),
+                        ),
+                      ));
+                    }
                   },
                 );
               }
