@@ -22,8 +22,6 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
   @override
   Widget build(BuildContext context) {
     
-    // return BlocBuilder<UploadDataBloc, UploadDataState>(
-    //   builder: (context, state) {
     return Dialog(
       child: Container(
         height: 150,
@@ -78,15 +76,9 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       FlatButton(
-                        child: Text("CANCEL"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      FlatButton(
                         child: Text("OK"),
                         onPressed: () {
-
+                          Navigator.pop(context);
                         },
                       )
                     ],

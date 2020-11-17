@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracer/blocs/data/data_bloc.dart';
 import 'package:tracer/blocs/data/data_event.dart';
@@ -66,6 +67,7 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
                 style: textTheme.headline5,
                 decoration: InputDecoration(
                   hintText: "Name",
+                  labelText: "Name"
                 ),
                 validator: (val) {
                   return val.trim().isEmpty
@@ -74,21 +76,41 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
                 },
                 onSaved: (value) => _name = value,
               ),
-              DropdownButton<String>(
+              TextFormField(
+                initialValue: isEditing ? widget.data.age : '',
+                key: ArchSampleKeys.nameField,
+                autofocus: !isEditing,
+                style: textTheme.headline5,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  WhitelistingTextInputFormatter.digitsOnly,
+                ],
+                decoration: InputDecoration(
+                  hintText: "Age",
+                  labelText: "Age"
+                ),
+                validator: (val) {
+                  return val.trim().isEmpty
+                      ? "Age is empty"
+                      : null;
+                },
+                onSaved: (value) => _age = int.parse(value)
+              ),
+              DropdownButtonFormField<String>(
                 value: "Male",
                 icon: Icon(Icons.arrow_downward),
                 iconSize: 24,
                 elevation: 16,
                 style: TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
                 onChanged: (String newValue) {
                   setState(() {
                     _sex = newValue;
                   });
                 },
+                decoration: InputDecoration(
+                  hintText: "Sex",
+                  labelText: "Sex"
+                ),
                 items: <String>['Male', 'Female']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
@@ -100,30 +122,33 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
               TextFormField(
                 initialValue: isEditing ? widget.data.longitude : '',
                 key: ArchSampleKeys.longituteField,
-                maxLines: 10,
                 style: textTheme.subtitle1,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
                   hintText: "Longitude",
+                  labelText: "Longitude"
                 ),
                 onSaved: (value) => _longitude = value,
               ),
               TextFormField(
                 initialValue: isEditing ? widget.data.latitude : '',
                 key: ArchSampleKeys.latitudeField,
-                maxLines: 10,
                 style: textTheme.subtitle1,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
                   hintText: "Latitude",
+                  labelText: "Latitude"
                 ),
                 onSaved: (value) => _latitude = value,
               ),
               TextFormField(
                 initialValue: isEditing ? widget.data.altitude : '',
                 key: ArchSampleKeys.altitudeField,
-                maxLines: 10,
                 style: textTheme.subtitle1,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
                   hintText: "Altitude",
+                  labelText: "Altitude"
                 ),
                 onSaved: (value) => _altitude = value,
               )

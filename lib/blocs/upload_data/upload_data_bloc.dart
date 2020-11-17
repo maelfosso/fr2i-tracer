@@ -68,7 +68,7 @@ class UploadDataBloc extends Bloc<UploadDataEvent, UploadDataState> {
 
   Future<DataEntity> postData(Data data) async {
     final http.Response response = await http.post(
-      'http://192.168.8.100:3000/api/data',
+      'http://192.168.8.100:4000/api/data',
       headers: <String, String> {
         'Content-Type': 'application/json; charset=UTF-8'
       },
