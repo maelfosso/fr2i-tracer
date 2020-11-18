@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:location/location.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sembast/sembast.dart';
@@ -12,6 +13,7 @@ class Init {
 
     await _initSembast();
     _registerRepositories();
+    await _enabledLocationService();
   }
 
   static Future _initSembast() async {
@@ -27,5 +29,26 @@ class Init {
     print("starting registering repositories");
     GetIt.I.registerLazySingleton<DataRepository>(() => LocalDataRepository()); 
     print("finished registering repositories");
+  }
+
+  static _enabledLocationService() async {
+    Location location = Location();
+
+    bool _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    PermissionStatus _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
   }
 }
