@@ -28,6 +28,7 @@ dependencies:
   path_provider: ^1.6.24
   get_it: ^5.0.1
   http: ^0.12.2
+  location: ^3.0.0
   flutter:
     sdk: flutter
 

@@ -19,17 +19,6 @@ void main() {
     create: (BuildContext context) => DataBloc()..add(DataLoad()),
     child: TracerApp(),
   ));
-  // runApp(MultiBlocProvider(
-  //   providers: [
-  //     BlocProvider<UploadDataBloc>(
-  //       create: (BuildContext context) => UploadDataBloc(),
-  //     ),
-  //     BlocProvider<DataBloc>(
-  //       create: (BuildContext context) => DataBloc()..add(DataLoad()),
-  //     ),
-  //   ], 
-  //   child: TracerApp()
-  // ));
 }
 
 class TracerApp extends StatefulWidget {

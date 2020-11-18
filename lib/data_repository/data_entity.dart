@@ -6,9 +6,9 @@ class DataEntity {
   final String name;
   final String sex;
   final int age;
-  final String longitude;
-  final String latitude;
-  final String altitude;
+  final double longitude;
+  final double latitude;
+  final double altitude;
 
   DataEntity(
     this._id,
@@ -71,9 +71,9 @@ class DataEntity {
       json['name'] as String,
       json['sex'] as String,
       json['age'] as int,
-      json['longitude'] as String,
-      json['latitude'] as String,
-      json['altitude'] as String,
+      json['longitude'] as double,
+      json['latitude'] as double,
+      json['altitude'] as double,
     );
   }
 

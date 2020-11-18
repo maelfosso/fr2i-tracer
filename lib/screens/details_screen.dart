@@ -57,17 +57,17 @@ class DetailsScreen extends StatelessWidget {
                       ),
                       ListTile(
                         title: Text("Longitude"),
-                        subtitle: Text(data.longitude),
+                        subtitle: Text(data.longitude.toString()),
                         dense: true,
                       ),
                       ListTile(
                         title: Text("Latitude"),
-                        subtitle: Text(data.latitude),
+                        subtitle: Text(data.latitude.toString()),
                         dense: true,
                       ),
                       ListTile(
                         title: Text("Altitude"),
-                        subtitle: Text(data.altitude),
+                        subtitle: Text(data.altitude.toString()),
                         dense: true,
                       )
                     ],

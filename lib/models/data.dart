@@ -1,15 +1,14 @@
 import 'dart:math';
 import 'package:equatable/equatable.dart';
-import 'package:tracer/data_repository/data_entity.dart';
 import 'package:tracer/models/models.dart';
 
 class Data extends Equatable {
   final String name;
   final String sex;
   final int age;
-  final String longitude;
-  final String latitude;
-  final String altitude;
+  final double longitude;
+  final double latitude;
+  final double altitude;
   final int id;
   final VisibilityFilter state;
 
@@ -37,7 +36,7 @@ class Data extends Equatable {
   }
 
   Data copyWith({String name, String sex, int id, int age, 
-      String longitude, String latitude, String altitude, 
+      double longitude, double latitude, double altitude, 
       String state
   }) {
     return Data(
