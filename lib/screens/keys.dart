@@ -56,4 +56,5 @@ class ArchSampleRoutes {
   static final home = '/';
   static final addData = '/addData';
   static final listData = '/listData';
+  static final takePicture = '/takePicture';
 }

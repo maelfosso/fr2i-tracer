@@ -11,9 +11,11 @@ import 'package:tracer/screens/add_edit_data_screen.dart';
 import 'package:tracer/screens/keys.dart';
 import 'package:tracer/screens/list_data_screen.dart';
 import 'package:tracer/screens/screens.dart';
+import 'package:tracer/screens/take_picture_screen.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
   
   runApp(BlocProvider(
     create: (BuildContext context) => DataBloc()..add(DataLoad()),
@@ -59,6 +61,9 @@ class _TracerStateApp extends State<TracerApp> {
               child: HomeScreen()
             ), 
             routes: {
+              // ArchSampleRoutes.home: (context) {
+              //   return HomeScreen();
+              // },
               ArchSampleRoutes.listData: (context) {
                 return ListDataScreen();
               },
@@ -74,6 +79,9 @@ class _TracerStateApp extends State<TracerApp> {
                       );
                     },
                   );
+              },
+              ArchSampleRoutes.takePicture: (context) {
+                return TakePictureScreen();
               }
             },
           );

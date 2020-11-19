@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,6 +15,7 @@ class Init {
     await _initSembast();
     _registerRepositories();
     await _enabledLocationService();
+    await _camera();
   }
 
   static Future _initSembast() async {
@@ -50,5 +52,12 @@ class Init {
       }
     }
 
+  }
+
+  static _camera() async {
+    final cameras = await availableCameras();
+    final firstCamera = cameras.first;
+
+    GetIt.I.registerSingleton<CameraDescription>(firstCamera);
   }
 }
