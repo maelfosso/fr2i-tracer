@@ -49,11 +49,7 @@ class HomeScreen extends StatelessWidget {
               print("Taped on TAKE A PICTURE");
             }),
             _buildFeatureItem(Icons.toys, "Classify a picture", () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) {
-                  return ClassifyPictureScreen();
-                }),
-              );
+              Navigator.pushNamed(context, ArchSampleRoutes.classifyPicture);
             })  
           ]
         )

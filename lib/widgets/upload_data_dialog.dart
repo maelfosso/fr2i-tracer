@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tracer/blocs/data/data.dart';
 import 'package:tracer/blocs/upload_data/upload_data.dart';
 import 'package:tracer/widgets/loading_indicator.dart';
 
@@ -10,7 +9,6 @@ class UploadDataDialog extends StatefulWidget {
 }
 
 class _UploadDataStateDialog extends State<UploadDataDialog> {
-// class UploadDataDialog extends StatelessWidget {
   int total = 0;
   int current = 0;
 
