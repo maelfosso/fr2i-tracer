@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
@@ -21,7 +23,7 @@ class Init {
   static Future _initSembast() async {
     final appDir = await getApplicationDocumentsDirectory();
     await appDir.create(recursive: true);
-    final databasePath = join(appDir.path, "sembast.db");
+    final databasePath = join(appDir.path, "db/sembast.db");
     final database = await databaseFactoryIo.openDatabase(databasePath);
     GetIt.I.registerSingleton<Database>(database);
     print("_initSembast is OK");
@@ -59,5 +61,10 @@ class Init {
     final firstCamera = cameras.first;
 
     GetIt.I.registerSingleton<CameraDescription>(firstCamera);
+
+    final directory = Directory(join((await getApplicationDocumentsDirectory()).path, 'pictures'));
+    if (!(await directory.exists())) {
+      await directory.create();
+    }
   }
 }

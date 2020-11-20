@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
-import 'package:tracer/screens/home_screen.dart';
-import 'package:tracer/screens/keys.dart';
 
 
 class TakePictureScreen extends StatefulWidget {
@@ -86,6 +84,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               // Store the picture in the temp directory.
               // Find the temp directory using the `path_provider` plugin.
               (await getApplicationDocumentsDirectory()).path,
+              'pictures',
               '${DateTime.now()}.png',
             );
             print('\nTake picture for ${path}');
