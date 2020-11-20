@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracer/blocs/data/data_bloc.dart';
-import 'package:tracer/blocs/data/data_event.dart';
-import 'package:tracer/models/models.dart';
-import 'package:tracer/screens/add_edit_data_screen.dart';
+import 'package:tracer/screens/classify_picture_screen.dart';
+import 'package:tracer/screens/gallery_screen.dart';
 import 'package:tracer/screens/keys.dart';
-import 'package:tracer/screens/list_data_screen.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -46,13 +44,17 @@ class HomeScreen extends StatelessWidget {
           alignment: WrapAlignment.spaceBetween,
           children: [
             _buildFeatureItem(Icons.add_a_photo ,"Take a picture", () {
-              print("Taped on TAKE A PICTURE");
+              Navigator.pushNamed(context, ArchSampleRoutes.takePicture);
             }),
             _buildFeatureItem(Icons.send, "Send a picture", () {
               print("Taped on TAKE A PICTURE");
             }),
             _buildFeatureItem(Icons.toys, "Classify a picture", () {
-              print("Taped on TAKE A PICTURE");
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) {
+                  return ClassifyPictureScreen();
+                }),
+              );
             })  
           ]
         )
@@ -75,24 +77,6 @@ class HomeScreen extends StatelessWidget {
           children: [
             _buildFeatureItem(Icons.add ,"Enter a data", () {
               Navigator.pushNamed(context, ArchSampleRoutes.addData);
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) {
-              //       return AddEditDataScreen(
-              //         key: ArchSampleKeys.addDataScreen,
-              //         onSave: (name, sex, age, longitude, latitude, altitude, id) {
-              //           BlocProvider.of<DataBloc>(context).add(
-              //             DataAdded(
-              //               Data(name, sex, 0, longitude, latitude, altitude, 0)
-              //             ) 
-              //           );
-              //         },
-              //         isEditing: false,
-              //         // todo: todo,
-              //       );
-              //     }
-              //   ),
-              // );
             }),
             _buildFeatureItem(Icons.all_out, "All your data", () {
               Navigator.pushNamed(context, ArchSampleRoutes.listData);
@@ -107,7 +91,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: BlocProvider.of<DataBloc>(context),
-      // create: (BuildContext context) => DataBloc(),
       child: Scaffold(
         appBar: AppBar(
           title: Text("Tracer")
@@ -125,23 +108,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) {
-              //       return ListDataScreen();
-              //       //   key: ArchSampleKeys.addDataScreen,
-              //       //   onSave: (name, sex, age, longitude, latitude, altitude, id) {
-              //       //     BlocProvider.of<DataBloc>(context).add(
-              //       //       DataAdded(
-              //       //         Data(name, sex, 0, longitude, latitude, altitude, 0)
-              //       //       ) 
-              //       //     );
-              //       //   },
-              //       //   isEditing: false,
-              //       //   // todo: todo,
-              //       // );
-              //     }
-              //   ),
-              // );
