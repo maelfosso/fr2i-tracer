@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tracer/blocs/classified_picture/classified_picture.dart';
 import 'package:tracer/blocs/data/data_bloc.dart';
 import 'package:tracer/blocs/data/data_event.dart';
-import 'package:tracer/blocs/data/data_state.dart';
 import 'package:tracer/blocs/simple_bloc_observer.dart';
-import 'package:tracer/blocs/upload_data/upload_data_bloc.dart';
 import 'package:tracer/init.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/screens/add_edit_data_screen.dart';
+import 'package:tracer/screens/classify_picture_screen.dart';
 import 'package:tracer/screens/keys.dart';
 import 'package:tracer/screens/list_data_screen.dart';
 import 'package:tracer/screens/screens.dart';
@@ -61,9 +61,6 @@ class _TracerStateApp extends State<TracerApp> {
               child: HomeScreen()
             ), 
             routes: {
-              // ArchSampleRoutes.home: (context) {
-              //   return HomeScreen();
-              // },
               ArchSampleRoutes.listData: (context) {
                 return ListDataScreen();
               },
@@ -82,7 +79,13 @@ class _TracerStateApp extends State<TracerApp> {
               },
               ArchSampleRoutes.takePicture: (context) {
                 return TakePictureScreen();
-              }
+              },
+              ArchSampleRoutes.classifyPicture: (context) {
+                return BlocProvider(
+                  create: (BuildContext context) => ClassifiedPictureBloc(),
+                  child: ClassifyPictureScreen()
+                );
+              },
             },
           );
         } else {

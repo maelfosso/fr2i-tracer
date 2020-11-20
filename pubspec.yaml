@@ -29,6 +29,7 @@ dependencies:
   get_it: ^5.0.1
   http: ^0.12.2
   location: ^3.0.0
+  tflite: ^1.1.1
   flutter:
     sdk: flutter
   camera:
@@ -54,6 +55,10 @@ flutter:
   # the material Icons class.
   
   uses-material-design: true
+
+  assets:
+    - assets/labels.txt
+    - assets/furniture-classification-model.tflite
 
   # To add assets to your application, add an assets section, like this:
   # assets:

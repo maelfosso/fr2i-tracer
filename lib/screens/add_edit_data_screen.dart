@@ -57,7 +57,6 @@ class _AddEditDataScreenState extends State<AddEditDataScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
