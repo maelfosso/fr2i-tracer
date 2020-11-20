@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracer/blocs/data/data_bloc.dart';
 import 'package:tracer/screens/classify_picture_screen.dart';
-import 'package:tracer/screens/gallery_screen.dart';
 import 'package:tracer/screens/keys.dart';
 
 class HomeScreen extends StatelessWidget {

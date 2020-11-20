@@ -5,10 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+typedef OnTapCallback = Function(
+  String imagePath
+);
+
 class GalleryWidget extends StatefulWidget {
   
+  final OnTapCallback onTap;
+
   const GalleryWidget({
     Key key,
+    @required this.onTap,
   }): super(key: key);
 
   GalleryWidgetState createState() => GalleryWidgetState();
@@ -60,7 +67,7 @@ class GalleryWidgetState extends State<GalleryWidget> {
       padding: EdgeInsets.zero,
       color: Colors.white,
       child: GridView.count(
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         childAspectRatio: 1.0,
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
@@ -68,12 +75,12 @@ class GalleryWidgetState extends State<GalleryWidget> {
         mainAxisSpacing: 1.0,
         crossAxisSpacing: 6.0,
         children: _images.map((image) {
-          print('\nImage mapping ${image}');
+          print('\nImage mapping $image');
 
           return GridTile(
             child: GestureDetector(
               onTap: () {
-                print('\nOn Tap()');
+                widget.onTap(image.path);
               },
               child: Hero(
                 tag: image.path.toString(),
