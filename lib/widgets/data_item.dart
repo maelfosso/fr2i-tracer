@@ -17,6 +17,7 @@ class DataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('\nDATA ITEM : $data');
     return Dismissible(
       key: ArchSampleKeys.dataItem(data.id.toString()),
       onDismissed: onDismissed,
@@ -38,7 +39,7 @@ class DataItem extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.subtitle1,
         ),
-        trailing: Icon(data.state == VisibilityFilter.synchronized ? Icons.cloud_done : Icons.cloud_off),
+        trailing: Icon(data.state == VisibilityFilter.synchronized.index.toInt() ? Icons.cloud_done : Icons.cloud_off),
       ),
     );
   }

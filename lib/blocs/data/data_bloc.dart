@@ -2,30 +2,16 @@ import 'dart:async';
 import 'package:get_it/get_it.dart';
 import 'package:bloc/bloc.dart';
 import 'package:tracer/blocs/data/data.dart';
-import 'package:tracer/blocs/upload_data/upload_data.dart';
-import 'package:tracer/blocs/upload_data/upload_data_bloc.dart';
-import 'package:tracer/data_repository/data_entity.dart';
 import 'package:tracer/models/models.dart';
 import 'package:tracer/data_repository/data_repository.dart';
 
 class DataBloc extends Bloc<DataEvent, DataState> {
   final DataRepository dataRepository = GetIt.I.get<DataRepository>();
-  
-  // UploadDataBloc uploadDataBloc;
-  // StreamSubscription uploadDataSubscription;
 
   DataBloc() : super(DataLoadInProgress()); 
-  // {
-  //   uploadDataSubscription = uploadDataBloc.listen((state) {
-  //     if (state is DataUploadedSuccess) {
-  //       add(DataUpdated(state.data.toData()));
-  //     }
-  //   });
-  // }
 
   @override
   Stream<DataState> mapEventToState(DataEvent event) async* {
-    print('\n+++++ \tmapEventToState ... $event \n');
     if (event is DataLoad) {
       yield* _mapDataLoadedToState();
     } else if (event is DataAdded) {
@@ -43,7 +29,9 @@ class DataBloc extends Bloc<DataEvent, DataState> {
 
   Stream<DataState> _mapDataLoadedToState() async* {
     try {
+      // print('\nLOADING DATA');
       final data = await this.dataRepository.getAllData();
+      // print('\nLOADEEEDDD DATA $data');
       yield DataLoadSuccess(data);
     } catch (_) {
       yield DataLoadFailure();
@@ -51,25 +39,28 @@ class DataBloc extends Bloc<DataEvent, DataState> {
   }
 
   Stream<DataState> _mapDataAddedToState(DataAdded event) async* {
-    print('\nInto _mapDataAddedToState - ${event.data} - $state');
     if (state is DataLoadSuccess) {
       final result = await this.dataRepository.insertData(event.data);
       final List<Data> updatedData = List.from((state as DataLoadSuccess).data)
         ..add(event.data.copyWith(id: result));
-      print("Result $result \tAdded Data ${event.data}");
+
       yield DataLoadSuccess(updatedData);
     }
-    print('\nEnd of _mapDataAddedToState');
   }
 
   Stream<DataState> _mapDataUpdatedToState(DataUpdated event) async* {
+    print('\n_mapDataUpdatedToState .... ${event.data} --- $state');
     if (state is DataLoadSuccess) {
+      print('\nInto mapDataUpdatedToState');
       final List<Data> updatedData = (state as DataLoadSuccess).data.map((data) {
         return data.id == event.data.id ? event.data : data;
       }).toList();
+      print('\nLOCAL UPDATE $updatedData');
+      
       this.dataRepository.updateData(event.data);
       yield DataLoadSuccess(updatedData);
     }
+    print('\nEnd of mapDataUpdatedToState');
   }
 
   Stream<DataState> _mapDataDeletedToState(DataDeleted event) async* {

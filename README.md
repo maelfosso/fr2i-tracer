@@ -1,16 +1,73 @@
-# tracer
+![](https://img.shields.io/badge/Microverse-blueviolet)
 
-A new Flutter project.
+# FR2I competition - Mobile computing (Mobile)
+
+> Build a platform for oneline/offline data collection through a mobile application and synchronization on a web server.
+
+![screenshot](./tracer-1.png)
+![screenshot](./tracer-5.png)
+
+This is the mobile application of the platform build with Flutter. As features, you can
+
+- Save a new data
+- List the data
+- Delete, Edit the data
+- Synchronize the data with the server
+- Take a picture
+- Classify the picture. Follow this [link](https://github.com/maelfosso/fr2i-api) to download the **api**.
+
+## Built With
+
+- Flutter
+- Flutter Bloc
+- SembastDB
+
+## Live Demo
+
+TBA : Google Play Store
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- `flutter` installed. 
+- Smartphone connected
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Setup
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clone the repository `git clone https://github.com/maelfosso/fr2i-tracer.git`
+- Change the current directory `cd fr2i-tracer`
+- Install the dependencies `flutter pub get`
+- Run the application `flutter run`
+
+### Usage
+
+Even if, it can work offline, the online version to work must be connected to the backend.
+Download it [here](https://github.com/maelfosso/fr2i-api) and follow the instruction to install it
+
+## Picture Classification
+
+You can access to the **Jupyter Notebook** on [Google Colab](https://colab.research.google.com/drive/1b5mY-cJcDzZV0R2TsEqw2DOZvjfwUTz4#scrollTo=P9ZDKJOyY7kB)
+
+
+## Authors
+
+👤 **Mael FOSSO**
+
+- GitHub: [@maelfosso](https://github.com/maelfosso)
+- Twitter: [@maelfosso](https://twitter.com/maelfosso)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/mael-fosso-650b6346/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](issues/).
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## 📝 License
+
+This project is [MIT](lic.url) licensed.
