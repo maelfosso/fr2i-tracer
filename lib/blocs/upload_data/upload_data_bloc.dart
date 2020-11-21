@@ -67,6 +67,10 @@ class UploadDataBloc extends Bloc<UploadDataEvent, UploadDataState> {
   }
 
   Future<DataEntity> postData(Data data) async {
+    print('\nENVCONFIG API_URL ${EnvConfig.API_URL}');
+    print(data.toMap());
+    print('\nTo Upload');
+
     final http.Response response = await http.post(
       'http://192.168.8.100:4000/api/data',
       headers: <String, String> {
@@ -75,6 +79,7 @@ class UploadDataBloc extends Bloc<UploadDataEvent, UploadDataState> {
       body: jsonEncode(data.toMap())
     );
     if (response.statusCode == 201) {
+      print('\nRESPONSE STTUSCODE 201');
       print(response.body);
       return DataEntity.fromJson(jsonDecode(response.body));
     } else {

@@ -21,7 +21,7 @@ class Data extends Equatable {
     this.altitude, 
     this.id,
     { this.state = VisibilityFilter.notsynchronized }
-  ); //: this.state = state;
+  ); 
   
   factory Data.fromMap(int id, Map<String, dynamic> map) {
     return Data(

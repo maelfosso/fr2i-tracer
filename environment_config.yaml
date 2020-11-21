@@ -9,7 +9,8 @@ environment_config:
     API_URL:
       env_var: API_URL
       const: false
-      default: "${Platform.isAndroid ? 'http://10.0.0.1' : 'http://localhost'}"
-
+      default: "${Platform.isAndroid ? 'http://192.168.8.101:4000' : 'http://localhost'}"
+      dotenv: true
+      
   imports:
     - dart:io

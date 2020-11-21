@@ -64,16 +64,17 @@ class DataEntity {
     );
   }
 
-  static DataEntity fromJson(Map<String, Object> json) {
+  static DataEntity fromJson(Map<String, dynamic> json) {
+
     return DataEntity(
       json['_id'] as String,
       json['originalId'] as int,
       json['name'] as String,
       json['sex'] as String,
       json['age'] as int,
-      json['longitude'] as double,
-      json['latitude'] as double,
-      json['altitude'] as double,
+      double.parse(json['longitude'].toString()),
+      double.parse(json['latitude'].toString()),
+      double.parse(json['altitude'].toString()),
     );
   }
 
