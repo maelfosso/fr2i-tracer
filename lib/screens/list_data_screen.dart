@@ -9,10 +9,10 @@ import 'package:tracer/widgets/loading_indicator.dart';
 import 'package:tracer/widgets/upload_data_dialog.dart';
 
 class ListDataScreen extends StatelessWidget {
+  DataBloc dataBloc;
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<DataBloc>(context).add(DataLoad());
     
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +24,7 @@ class ListDataScreen extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) => BlocProvider(
-                  create: (_) => UploadDataBloc(dataBloc: BlocProvider.of<DataBloc>(context))..add(DataUpload()),
+                  create: (_) => UploadDataBloc(dataBloc: dataBloc)..add(DataUpload()),
                   child: UploadDataDialog()
                 )
               ); 
@@ -34,6 +34,13 @@ class ListDataScreen extends StatelessWidget {
       ),
       body: BlocBuilder<DataBloc, DataState>(
         builder: (context, state) {
+          print('\nLIST DATA STTATE -- $state');
+
+          dataBloc = context.bloc<DataBloc>(); // 
+          // dataBloc = BlocProvider.of<DataBloc>(context);
+          dataBloc.add(DataLoad());
+          print(dataBloc.state);
+    
           if (state is DataLoadInProgress) {
             return LoadingIndicator();
           } else if (state is DataLoadSuccess) {
@@ -45,11 +52,12 @@ class ListDataScreen extends StatelessWidget {
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
                 final datum = data[index];
-
+                print('\nBEFORE DATAITEM $datum');
                 return DataItem(
                   data: datum,
                   onDismissed: (direction) {
                     BlocProvider.of<DataBloc>(context).add(DataDeleted(datum));
+                    
                     Scaffold.of(context).showSnackBar(SnackBar(
                       duration: Duration(seconds: 3),
                       content: Text(

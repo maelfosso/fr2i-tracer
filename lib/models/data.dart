@@ -10,7 +10,7 @@ class Data extends Equatable {
   final double latitude;
   final double altitude;
   final int id;
-  final VisibilityFilter state;
+  int state = VisibilityFilter.notsynchronized.index.toInt();
 
   Data(
     this.name, 
@@ -20,8 +20,8 @@ class Data extends Equatable {
     this.latitude,
     this.altitude, 
     this.id,
-    { this.state = VisibilityFilter.notsynchronized }
-  ); 
+    { this.state }
+  );
   
   factory Data.fromMap(int id, Map<String, dynamic> map) {
     return Data(
@@ -31,7 +31,8 @@ class Data extends Equatable {
       map['longitude'],
       map['latitude'],
       map['altitude'],
-      id
+      id,
+      state: map['state']
     );
   }
 
@@ -80,6 +81,7 @@ class Data extends Equatable {
       'latitude': latitude,
       'altitude': altitude,
       'id': id,
+      'state': state
     };
   }
 

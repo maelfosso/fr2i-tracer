@@ -52,6 +52,8 @@ class DataEntity {
   }
 
   Data toData() {
+    print('\ntoDATA -- $originalId -- ${this._id.isNotEmpty ? VisibilityFilter.synchronized.index.toInt() : VisibilityFilter.notsynchronized.index.toInt()}');
+    
     return Data(
       name,
       sex,
@@ -60,7 +62,7 @@ class DataEntity {
       latitude,
       altitude,
       originalId,
-      state: this._id.isNotEmpty ? VisibilityFilter.synchronized : VisibilityFilter.notsynchronized
+      state: this._id.isNotEmpty ? VisibilityFilter.synchronized.index.toInt() : VisibilityFilter.notsynchronized.index.toInt()
     );
   }
 
