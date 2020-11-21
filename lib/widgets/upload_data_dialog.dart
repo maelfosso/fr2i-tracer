@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tracer/blocs/data/data.dart';
 import 'package:tracer/blocs/upload_data/upload_data.dart';
 import 'package:tracer/widgets/loading_indicator.dart';
 
@@ -54,6 +55,8 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
                         }
                       } else if (state is DataUploadedSuccess) {
                         current += 1;
+                        print('\nIS UPDATED.... ${state.data.toData()}. Now SAVVE UPDATE');
+                        BlocProvider.of<DataBloc>(context).add(DataUpdated(state.data.toData()));
                       }
 
                       return Column(
@@ -76,6 +79,7 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
                       FlatButton(
                         child: Text("OK"),
                         onPressed: () {
+                          BlocProvider.of<DataBloc>(context).add(DataLoad());
                           Navigator.pop(context);
                         },
                       )

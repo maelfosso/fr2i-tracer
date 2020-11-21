@@ -14,7 +14,6 @@ class HomeScreen extends StatelessWidget {
           title: Text("Tracer")
         ),
         body: Container(
-          padding: EdgeInsets.all(16.0),
           child: ListView(
             children: [
               ListTile(

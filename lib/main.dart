@@ -19,6 +19,7 @@ void main() {
   
   runApp(BlocProvider(
     create: (BuildContext context) => DataBloc()..add(DataLoad()),
+    // lazy: false,
     child: TracerApp(),
   ));
 }
@@ -36,6 +37,8 @@ class _TracerStateApp extends State<TracerApp> {
     return FutureBuilder(
       future: _init,
       builder: (context, snapshot){
+        print('\nFUTUREBUILDDER ... $snapshot');
+
         if (snapshot.connectionState == ConnectionState.done){
           return MaterialApp(
             title: 'Tracer',
@@ -55,11 +58,7 @@ class _TracerStateApp extends State<TracerApp> {
               // closer together (more dense) than on mobile platforms.
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home: BlocProvider(
-              lazy: false,
-              create: (BuildContext context) => DataBloc()..add(DataLoad()),
-              child: HomeScreen()
-            ), 
+            home: HomeScreen(),
             routes: {
               ArchSampleRoutes.listData: (context) {
                 return ListDataScreen();
@@ -71,7 +70,7 @@ class _TracerStateApp extends State<TracerApp> {
                     onSave: (name, sex, age, longitude, latitude, altitude, id) {
                       BlocProvider.of<DataBloc>(context).add(
                         DataAdded(
-                          Data(name, sex, 0, longitude, latitude, altitude, 0)
+                          Data(name, sex, 0, longitude, latitude, altitude, 0, state: VisibilityFilter.notsynchronized.index.toInt())
                         ) 
                       );
                     },
