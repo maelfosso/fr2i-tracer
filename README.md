@@ -33,6 +33,8 @@ TBA : Google Play Store
 - `flutter` installed. 
 - Smartphone connected
 
+Because of this [issue](https://github.com/shaqian/flutter_tflite/issues/149), the prediction model works only from **Android 7.0**
+
 ### Setup
 
 - Clone the repository `git clone https://github.com/maelfosso/fr2i-tracer.git`

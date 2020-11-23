@@ -1,6 +1,6 @@
-import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
+import 'package:tracer/models/models.dart';
 
 abstract class ClassifiedPictureState extends Equatable {
   const ClassifiedPictureState();
@@ -12,7 +12,7 @@ abstract class ClassifiedPictureState extends Equatable {
 class ClassifiedPictureInProgress extends ClassifiedPictureState {}
 
 class ClassifiedPictureSuccess extends ClassifiedPictureState {
-  final List outputs;
+  final List<Result> outputs;
   final String imagePath;
 
   const ClassifiedPictureSuccess(

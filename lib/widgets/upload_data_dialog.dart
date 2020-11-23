@@ -47,7 +47,6 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
                         return LoadingIndicator();
                       } else if (state is DataUploadStarted) {
                         total = state.total;
-
                         if (total == 0) {
                           return Center(
                             child: Text("Nothing to synchronize")
@@ -55,8 +54,18 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
                         }
                       } else if (state is DataUploadedSuccess) {
                         current += 1;
-                        print('\nIS UPDATED.... ${state.data.toData()}. Now SAVVE UPDATE');
                         BlocProvider.of<DataBloc>(context).add(DataUpdated(state.data.toData()));
+                      } else if (state is DataUploadedFailure) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: new Text("Error"),
+                              content: new Text("An error during the synchronization. Kindly be sure that you set up the good parameter"),
+                            );
+                          }
+                        );
+                        return Container();
                       }
 
                       return Column(
@@ -68,6 +77,10 @@ class _UploadDataStateDialog extends State<UploadDataDialog> {
                           Text(
                             "$current/$total",
                             textAlign: TextAlign.right,
+                          ),
+                          Visibility(
+                            visible: current == total,
+                            child: Text('Close the app and reopen it please'),
                           )
                         ],
                       );
