@@ -50,7 +50,10 @@ Download it [here](https://github.com/maelfosso/fr2i-api) and follow the instruc
 
 ## Picture Classification
 
-You can access to the **Jupyter Notebook** on [Google Colab](https://colab.research.google.com/drive/1b5mY-cJcDzZV0R2TsEqw2DOZvjfwUTz4#scrollTo=P9ZDKJOyY7kB)
+The classification algorithm has been build using Tensorflow.
+The file `fr2i_images_classification.{ipynb,py}` contains the process of the model creation.
+
+You can also access to the **Jupyter Notebook** on [Google Colab](https://colab.research.google.com/drive/1b5mY-cJcDzZV0R2TsEqw2DOZvjfwUTz4#scrollTo=P9ZDKJOyY7kB)
 
 
 ## Authors
