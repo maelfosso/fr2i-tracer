@@ -60,6 +60,8 @@ class UploadDataBloc extends Bloc<UploadDataEvent, UploadDataState> {
     if (response.statusCode == 201) {
       return DataEntity.fromJson(jsonDecode(response.body));
     } else {
+      print('\nAn error occured');
+      print(response.body);
       throw Exception('Failed to upload $data. \nResponse Status Code ${response.statusCode}');
     }
   }

@@ -29,7 +29,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 title: Text(
                   "Take a picture",
-                  // style: Theme.of(context).textTheme.headline5
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, ArchSampleRoutes.takePicture);
@@ -42,18 +41,13 @@ class HomeScreen extends StatelessWidget {
                 ),
                 title: Text(
                   "Send a picture",
-                  // style: Theme.of(context).textTheme.headline5
                 ),
                 onTap: () {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 3),
-                      content: Text(
-                        "Feature not implemented",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis
-                      )
-                    )
-                  );
+                  // final snackBar = SnackBar(
+                  //   content: Text('Feature not implemented yet')
+                  // );
+
+                  // Scaffold.of(context).showSnackBar(snackBar);
                 },
               ),
               ListTile(
@@ -63,7 +57,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 title: Text(
                   "Classify a picture",
-                  // style: Theme.of(context).textTheme.headline5
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, ArchSampleRoutes.classifyPicture);
@@ -84,7 +77,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 title: Text(
                   "Enter a data",
-                  // style: Theme.of(context).textTheme.headline5
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, ArchSampleRoutes.addData);
@@ -97,7 +89,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 title: Text(
                   "All your data",
-                  // style: Theme.of(context).textTheme.headline5
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, ArchSampleRoutes.listData);

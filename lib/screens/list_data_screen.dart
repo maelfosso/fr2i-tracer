@@ -36,8 +36,8 @@ class ListDataScreen extends StatelessWidget {
         builder: (context, state) {
           print('\nLIST DATA STTATE -- $state');
 
-          dataBloc = context.bloc<DataBloc>(); // 
-          // dataBloc = BlocProvider.of<DataBloc>(context);
+          // dataBloc = context.bloc<DataBloc>(); // 
+          dataBloc = BlocProvider.of<DataBloc>(context);
           dataBloc.add(DataLoad());
           print(dataBloc.state);
     
