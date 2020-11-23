@@ -38,6 +38,7 @@ TBA : Google Play Store
 - Clone the repository `git clone https://github.com/maelfosso/fr2i-tracer.git`
 - Change the current directory `cd fr2i-tracer`
 - Install the dependencies `flutter pub get`
+- Set up the IP Address of your server (the machine in which your launch the back-end) `flutter pub run environment_config:generate --ENV=development --API_URL={IP_ADDR}`
 - Run the application `flutter run`
 
 ### Usage
